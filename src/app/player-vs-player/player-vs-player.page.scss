@@ -1,0 +1,16 @@
+.white {
+    background-color: #f0d9b7;
+}
+.black {
+    background-color: #b48766;
+}
+.pcs {
+    z-index: 10;
+}
+.circle {
+    position: absolute;
+    z-index: 9;
+    top: 2px;
+    left: 0px;
+    // object-fit: contain;
+}

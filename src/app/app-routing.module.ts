@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'player-vs-player',
+    loadChildren: () => import('./player-vs-player/player-vs-player.module').then( m => m.PlayerVsPlayerPageModule)
+  },
 ];
 
 @NgModule({
