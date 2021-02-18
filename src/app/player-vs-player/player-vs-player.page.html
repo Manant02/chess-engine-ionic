@@ -11,19 +11,24 @@
       [ngClass]="{'white': (r+c)%2==0, 'black': (r+c)%2==1}" 
       (click)="click(r, c)">
         <!-- {{chessCol}} -->
-        <img src="../assets/img/pieces/{{chessCol}}.png" class="pcs">
+        <img src="{{chessCol.img}}" class="pcs">
         <img *ngIf="showCircle(r, c)" class="circle" src="../assets/img/extras/circle.png">
+        <img *ngIf="showDot(r, c)" class="circle" src="../assets/img/extras/dot.png">
+        <img *ngIf="showCross(r, c)" class="circle" src="../assets/img/extras/cross.png">
       </ion-col>
     </ion-row>
   </ion-grid>
   <br>
-  show_circle_list: {{show_circle_list}} <br>
+  turn: {{turn}} <br>
   step: {{step}} <br>
   selected_piece: {{selected_piece}} <br>
   debug: {{debug}}
+  
   <br>
   <ion-button (click)="test()">test</ion-button>
-
+  
+  <br>
+  <ion-button (click)="resetBoard()">Reset board</ion-button>
   <br>
   <ion-button routerLink="/home" routerDirection="forward">Home</ion-button>
 
