@@ -1,9 +1,9 @@
-import { Position, Piece, Move, Board } from '../environment/interfaces';
+import { Position, Piece, Move } from '../environment/interfaces';
 import { EmptyBoard, Empty, WhiteKing, BlackKing, WhiteQueen, BlackQueen, WhiteBishop, BlackBishop, WhiteKnight, BlackKnight, WhiteRook, BlackRook, WhitePawn, BlackPawn } from '../environment/pieces';
 
 export class Environment {
     
-    board: Board; // TODO: Board as interface, with []operator for Position
+    board: Piece[][];
     // white_move = true;
     // previous_move = [];
     // castle_kingside = [true, true];
@@ -33,7 +33,7 @@ export class Environment {
         return false;
     }
 
-    getCheckStatus(board: Board, color: string): boolean {
+    getCheckStatus(board: Piece[][], color: string): boolean {
         var king_position = this.getKingPosition(board, color);
         for (var i = 0; i < 8; i++) {
             for (var j = 0; j < 8; j++) {
@@ -77,7 +77,7 @@ export class Environment {
         }
     }
 
-    getKingPosition(board: Board, color: string): Position {
+    getKingPosition(board: Piece[][], color: string): Position {
         for (var i = 0; i < 8; i++) {
             for (var j = 0; j < 8; j++) {
                 if (board[i][j].name == "king" && board[i][j].color == color) {
@@ -87,8 +87,8 @@ export class Environment {
         }
     }
 
-    copyBoard(board: Board): Board {
-        var new_board: Board = EmptyBoard;
+    copyBoard(board: Piece[][]): Piece[][] {
+        var new_board: Piece[][] = EmptyBoard;
         for (var i = 0; i < 8; i++) {
             for (var j = 0; j < 8; j++) {
                 new_board[i][j] = {...board[i][j]};

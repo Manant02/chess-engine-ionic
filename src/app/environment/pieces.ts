@@ -1,4 +1,4 @@
-import { Position, Piece, Move, Board } from '../environment/interfaces';
+import { Position, Piece, Move } from '../environment/interfaces';
 
 function onBoard(position: Position): boolean {
     if (position.row >= 0 && position.row < 8 && position.col >= 0 && position.col < 8) return true;
@@ -13,7 +13,7 @@ export const Empty: Piece = {
     img:  "../assets/img/pieces/11.png",
     position: null,
     
-    getMoves(board: Board): Move[] {
+    getMoves(board: Piece[][]): Move[] {
         return null;
     }
 };
@@ -25,7 +25,7 @@ export const WhiteKing: Piece = {
     img: "../assets/img/pieces/29.png",
     position: null,
     
-    getMoves(board: Board): Move[] {
+    getMoves(board: Piece[][]): Move[] {
         var valid_moves: Move[] = [];
         for (var inc of [[0,-1], [0,1], [-1,-1], [1,1], [-1,0], [1,0], [-1,1], [1,-1]]) {
                 var future_position = {...this.position};
@@ -45,7 +45,7 @@ export const BlackKing: Piece = {
     img: "../assets/img/pieces/39.png",
     position: null,
     
-    getMoves(board: Board): Move[] {
+    getMoves(board: Piece[][]): Move[] {
         var valid_moves: Move[] = [];
         for (var inc of [[0,-1], [0,1], [-1,-1], [1,1], [-1,0], [1,0], [-1,1], [1,-1]]) {
                 var future_position = {...this.position};
@@ -65,7 +65,7 @@ export const WhiteQueen: Piece = {
     img: "../assets/img/pieces/28.png",
     position: null,
     
-    getMoves(board: Board): Move[] {
+    getMoves(board: Piece[][]): Move[] {
         var valid_moves: Move[] = [];
         var increments: [number, number][] = [[1,0], [0,1], [-1,0], [0,-1], [1,1], [-1,1], [-1,-1], [1,-1]];
         for (var inc of increments) {
@@ -94,7 +94,7 @@ export const BlackQueen: Piece = {
     img: "../assets/img/pieces/38.png",
     position: null,
     
-    getMoves(board: Board): Move[] {
+    getMoves(board: Piece[][]): Move[] {
         var valid_moves: Move[] = [];
         var increments: [number, number][] = [[1,0], [0,1], [-1,0], [0,-1], [1,1], [-1,1], [-1,-1], [1,-1]];
         for (var inc of increments) {
@@ -124,7 +124,7 @@ export const WhiteBishop: Piece = {
     img: "../assets/img/pieces/27.png",
     position: null,
     
-    getMoves(board: Board): Move[] {
+    getMoves(board: Piece[][]): Move[] {
         var valid_moves: Move[] = [];
         var increments: [number, number][] = [[1,1], [-1,1], [-1,-1], [1,-1]];
         for (var inc of increments) {
@@ -153,7 +153,7 @@ export const BlackBishop: Piece = {
     img: "../assets/img/pieces/37.png",
     position: null,
     
-    getMoves(board: Board): Move[] {
+    getMoves(board: Piece[][]): Move[] {
         var valid_moves: Move[] = [];
         var increments: [number, number][] = [[1,1], [-1,1], [-1,-1], [1,-1]];
         for (var inc of increments) {
@@ -182,7 +182,7 @@ export const WhiteKnight: Piece = {
     img: "../assets/img/pieces/26.png",
     position: null,
     
-    getMoves(board: Board): Move[] {
+    getMoves(board: Piece[][]): Move[] {
         var valid_moves: Move[] = [];
         for (var inc of [[-2,-1], [-2,1], [2,-1], [2,1], [-1,-2], [1,-2], [-1,2], [1,2]]) {
                 var future_position = {...this.position};
@@ -202,7 +202,7 @@ export const BlackKnight: Piece = {
     img: "../assets/img/pieces/36.png",
     position: null,
     
-    getMoves(board: Board): Move[] {
+    getMoves(board: Piece[][]): Move[] {
         var valid_moves: Move[] = [];
         for (var inc of [[-2,-1], [-2,1], [2,-1], [2,1], [-1,-2], [1,-2], [-1,2], [1,2]]) {
                 var future_position = {...this.position};
@@ -222,7 +222,7 @@ export const WhiteRook: Piece = {
     img: "../assets/img/pieces/25.png",
     position: null,
     
-    getMoves(board: Board): Move[] {
+    getMoves(board: Piece[][]): Move[] {
         var valid_moves: Move[] = [];
         var increments: [number, number][] = [[1,0], [0,1], [-1,0], [0,-1]];
         for (var inc of increments) {
@@ -251,7 +251,7 @@ export const BlackRook: Piece = {
     img: "../assets/img/pieces/35.png",
     position: null,
     
-    getMoves(board: Board): Move[] {
+    getMoves(board: Piece[][]): Move[] {
         var valid_moves: Move[] = [];
         var increments: [number, number][] = [[1,0], [0,1], [-1,0], [0,-1]];
         for (var inc of increments) {
@@ -280,7 +280,7 @@ export const WhitePawn: Piece = {
     img: "../assets/img/pieces/24.png",
     position: null,
     
-    getMoves(board: Board): Move[] {
+    getMoves(board: Piece[][]): Move[] {
         var valid_moves: Move[] = [];
         var future_position: Position = {...this.position};
         future_position.row += -1;
@@ -311,7 +311,7 @@ export const BlackPawn: Piece = {
     img: "../assets/img/pieces/34.png",
     position: null,
     
-    getMoves(board: Board): Move[] {
+    getMoves(board: Piece[][]): Move[] {
         var valid_moves: Move[] = [];
         var future_position: Position = {...this.position};
         future_position.row += 1;
@@ -335,7 +335,7 @@ export const BlackPawn: Piece = {
     }
 };
 
-export const EmptyBoard: Board  = [[Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty], 
+export const EmptyBoard: Piece[][]  = [[Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty], 
                                   [Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty],
                                   [Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty],
                                   [Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty],

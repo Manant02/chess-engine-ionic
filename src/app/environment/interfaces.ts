@@ -3,7 +3,6 @@ export interface Position {
     col: number;
 }
 
-// export necessary?
 export interface Move {
     piece: Piece;
     current: Position;
@@ -18,10 +17,10 @@ export interface Piece {
     readonly img:  string;
     readonly color:  string;
     position: Position;
-    getMoves(board: Board): Move[]; // TODO: add parameters for castling & en passent (e.g. previous move)
+    getMoves(board: Piece[][]): Move[]; // TODO: add parameters for castling & en passent (e.g. previous move)
 }
 
-export interface Board {
-    [index: number]: Piece[];
-    // at(position: Position): Piece;
-}
+// export interface Board {
+//     [index: number]: Piece[];
+//     // at(position: Position): Piece;
+// }
