@@ -32,7 +32,7 @@ export const WhiteKing: Piece = {
                 future_position.row += inc[0];
                 future_position.col += inc[1];
                 if (!onBoard(future_position) || board[future_position.row][future_position.col].color == this.color) continue;
-                    valid_moves.push({piece: this, current: this.position, future: future_position});            
+                valid_moves.push({piece: this, current: this.position, future: future_position});            
         }
         return valid_moves;
     }

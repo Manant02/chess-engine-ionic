@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { Environment } from '../environment/environment';
 import { Position, Piece, Move } from '../environment/interfaces'; // TODO: infere these from Environment?
 
@@ -13,15 +14,37 @@ export class PlayerVsPlayerPage implements OnInit {
   show_circle_list: Position[] = [];
   show_dot_list: Position[] = [];
   show_cross_list: Position[] = [];
-  step = 0; // 0: select piece to move, 1: select destination, execute move
+  step = 0; // 0: select piece to move, 1: select destination, execute move, 2: game over
   turn = "white"; // 0: white to move, 1: black to move
   selected_piece: [Piece, Position];
 
   debug: any;
 
-  constructor() { }
+  constructor(public alertController: AlertController) { }
 
   ngOnInit() {
+  }
+
+  async alertWin(winner: String) {
+    const alert = await this.alertController.create({
+      header: `Checkmate`,
+      subHeader: `${winner} wins!`,
+      message: `Press "OK" to continue`,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async alertResignation(winner: String) {
+    const alert = await this.alertController.create({
+      header: `${winner == "white" || winner == "White" ? "Black" : "White"} resigned`,
+      subHeader: `${winner} wins!`,
+      message: `Press "OK" to continue`,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
   click(r, c) {
@@ -40,7 +63,9 @@ export class PlayerVsPlayerPage implements OnInit {
     var position = {row: r, col: c};
     this.show_circle_list.push(position);
     for (var move of this.env.board[r][c].getMoves(this.env.board)) {
-      this.show_dot_list.push(move.future);
+      if (this.env.isLegalMove(move, this.env.board)) {
+        this.show_dot_list.push(move.future);
+      }
     }
     this.selected_piece = [this.env.board[r][c], position];
     this.step = 1;
@@ -52,11 +77,20 @@ export class PlayerVsPlayerPage implements OnInit {
       if (this.turn == "white") this.turn = "black";
       else this.turn = "white";
       this.show_cross_list = [];
-      if (this.env.getCheckStatus(this.env.board, this.turn)) this.show_cross_list.push(this.env.getKingPosition(this.env.board, this.turn));
+      if (this.env.isCheck(this.env.board, this.turn)) this.show_cross_list.push(this.env.getKingPosition(this.env.board, this.turn));
     }
     this.step = 0;
     this.show_circle_list = [];
     this.show_dot_list = [];
+    if (this.env.isCheckmate(this.env.board, this.turn)) {
+      this.alertWin(this.turn == "white" ? "Black" : "White")
+      this.step = 3;
+    }
+  }
+
+  playerResignation(color: String) {
+    this.alertResignation(color == "white" ? "Black" : "White");
+    this.step = 3;
   }
 
   showCircle(r: number, c: number): boolean {
@@ -88,6 +122,10 @@ export class PlayerVsPlayerPage implements OnInit {
   resetBoard() {
     this.env.resetBoard();
     this.turn = "white";
+    this.step = 0;
+    this.show_cross_list = [];
+    this.show_circle_list = [];
+    this.show_dot_list = [];
   }
 
 

@@ -15,25 +15,15 @@ export class Environment {
 
     makeMove(move: Move): boolean {
         var valid_moves: Move[] = move.piece.getMoves(this.board);
-        if (this.arrContainsMove(valid_moves, move)) {
-            // var new_board = this.copyBoard(this.board);
-            // new_board[move.future.row][move.future.col] = {...move.piece, position: move.future};
-            // new_board[move.current.row][move.current.col] = Empty;
-            // new_board[0][0] = BlackQueen;
-            var future_piece = this.board[move.future.row][move.future.col]; 
+        if (this.arrContainsMove(valid_moves, move) && this.isLegalMove(move, this.board)) {
             this.board[move.future.row][move.future.col] = {...move.piece, position: move.future};
             this.board[move.current.row][move.current.col] = Empty;
-            if (!this.getCheckStatus(this.board, move.piece.color)) {
-                return true;
-            } else {
-                this.board[move.future.row][move.future.col] = future_piece;
-                this.board[move.current.row][move.current.col] = move.piece;
-            }
+            return true;
         }
         return false;
     }
 
-    getCheckStatus(board: Piece[][], color: string): boolean {
+    isCheck(board: Piece[][], color: string): boolean {
         var king_position = this.getKingPosition(board, color);
         for (var i = 0; i < 8; i++) {
             for (var j = 0; j < 8; j++) {
@@ -42,6 +32,37 @@ export class Environment {
                     if (this.isPositionEqual(king_position, potential_check_move.future)) return true;
                 }
             }
+        }
+        return false;
+    }
+
+    isLegalMove(move: Move, board: Piece[][]): boolean {
+        var future_piece = board[move.future.row][move.future.col];
+        board[move.future.row][move.future.col] = {...move.piece, position: move.future};
+        board[move.current.row][move.current.col] = Empty;
+        if (!this.isCheck(board, move.piece.color)) {
+            board[move.future.row][move.future.col] = future_piece;
+            board[move.current.row][move.current.col] = move.piece;
+            return true;
+        } else {
+            board[move.future.row][move.future.col] = future_piece;
+            board[move.current.row][move.current.col] = move.piece;
+            return false;
+        }
+    }
+
+    isCheckmate(board: Piece[][], color: string): boolean {
+        if (this.isCheck(board, color)) {
+            for (var i = 0; i < 8; i++) {
+                for (var j = 0; j < 8; j++) {
+                    if (board[i][j].color == color) {
+                        for (var move of board[i][j].getMoves(board)) {
+                            if (this.isLegalMove(move, board)) return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
         return false;
     }

@@ -18,7 +18,8 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <br>
+  <ion-button (click)="playerResignation(turn)">Resign</ion-button>
+  <br><br><br>
   turn: {{turn}} <br>
   step: {{step}} <br>
   selected_piece: {{selected_piece}} <br>
@@ -31,5 +32,10 @@
   <ion-button (click)="resetBoard()">Reset board</ion-button>
   <br>
   <ion-button routerLink="/home" routerDirection="forward">Home</ion-button>
+
+  <br><br><br>
+
+  <div id="board1" style="width: 400px"></div>
+
 
 </ion-content>
