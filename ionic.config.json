@@ -1,5 +1,5 @@
 {
-  "name": "Chess Engine",
+  "name": "chess-engine-ionic",
   "integrations": {
     "capacitor": {}
   },
