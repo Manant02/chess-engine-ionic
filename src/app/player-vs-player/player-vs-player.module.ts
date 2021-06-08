@@ -8,6 +8,10 @@ import { PlayerVsPlayerPageRoutingModule } from './player-vs-player-routing.modu
 
 import { PlayerVsPlayerPage } from './player-vs-player.page';
 
+import { BoardComponent } from '../board/board.component';
+import { StartComponent } from './start/start.component';
+import { ChessGame } from '../chess-game/chess-game';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +19,10 @@ import { PlayerVsPlayerPage } from './player-vs-player.page';
     IonicModule,
     PlayerVsPlayerPageRoutingModule
   ],
-  declarations: [PlayerVsPlayerPage]
+  declarations: [
+    PlayerVsPlayerPage,
+    BoardComponent,
+    StartComponent
+  ]
 })
 export class PlayerVsPlayerPageModule {}

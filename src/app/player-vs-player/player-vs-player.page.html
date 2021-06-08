@@ -1,41 +1,27 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Player Vs Player</ion-title>
+    <ion-title>Player vs. Player</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid fixed=true>
-    <ion-row *ngFor="let chessRow of env.board; let r = index">
-      <ion-col *ngFor="let chessCol of chessRow; let c = index" 
-      [ngClass]="{'white': (r+c)%2==0, 'black': (r+c)%2==1}" 
-      (click)="click(r, c)">
-        <!-- {{chessCol}} -->
-        <img src="{{chessCol.img}}" class="pcs">
-        <img *ngIf="showCircle(r, c)" class="circle" src="../assets/img/extras/circle.png">
-        <img *ngIf="showDot(r, c)" class="circle" src="../assets/img/extras/dot.png">
-        <img *ngIf="showCross(r, c)" class="circle" src="../assets/img/extras/cross.png">
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-button (click)="playerResignation(turn)">Resign</ion-button>
-  <br><br><br>
-  turn: {{turn}} <br>
-  step: {{step}} <br>
-  selected_piece: {{selected_piece}} <br>
-  debug: {{debug}}
-  
-  <br>
-  <ion-button (click)="test()">test</ion-button>
-  
-  <br>
-  <ion-button (click)="resetBoard()">Reset board</ion-button>
-  <br>
-  <ion-button routerLink="/home" routerDirection="forward">Home</ion-button>
-
-  <br><br><br>
-
-  <div id="board1" style="width: 400px"></div>
-
-
+  <div style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+    <div style="width: 100%; max-width: 900px;">
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="12" size-sm="8">
+            <app-board></app-board>
+          </ion-col>
+          <ion-col>
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>Player vs. Player</ion-card-title>
+              </ion-card-header>
+              <ion-button expand="block" (click)="quit()">Quit Game</ion-button>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
 </ion-content>

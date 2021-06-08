@@ -1,0 +1,71 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Player vs. Player</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/home" text="cancel"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- TODO: create container class in global css -->
+  <div style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+    <div style="width: 100%; max-width: 700px;">
+      <ion-list class="ion-align-content-center">
+        <ion-list-header>Game settings</ion-list-header>
+        <ion-item>
+          <ion-label>Initial board layout</ion-label>
+          <br>
+          <ion-select [(ngModel)]="layout">
+            <ion-select-option value="default">Default</ion-select-option>
+            <ion-select-option value="empty">Empty</ion-select-option>
+            <ion-select-option value="fen">input FEN string</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="layout == 'fen'">
+          <ion-label position="stacked">Board layout as FEN string</ion-label>
+          <ion-input [(ngModel)]="fen"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>First to move</ion-label>
+          <ion-select [(ngModel)]="whiteMove">
+            <ion-select-option value="white">White</ion-select-option>
+            <ion-select-option value="black">Black</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Castling rights</ion-label>
+          <ion-select [(ngModel)]="castle" multiple="true">
+            <ion-select-option value="bk">Black kingside</ion-select-option>
+            <ion-select-option value="bq">Black queenside</ion-select-option>
+            <ion-select-option value="wk">White kingside</ion-select-option>
+            <ion-select-option value="wq">White queenside</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Previous Move</ion-label>
+          <ion-button disabled="true">Select Move</ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-label>Rotate board</ion-label>
+          <ion-checkbox slot="end" [(ngModel)]="rotateBoard" disabled="true"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    
+      <ion-button expand="block" (click)="startGame()">Start game</ion-button>
+    
+      <br>
+      Rotate board: {{rotateBoard}}
+      <br>
+      layout: {{layout}}
+      <br>
+      fen: {{fen}}
+      <br>
+      whiteMove: {{whiteMove}}
+      <br>
+      previousMove: {{previousMove}}
+      <br>
+      castle: {{castle}}
+    </div>
+  </div>
+</ion-content>

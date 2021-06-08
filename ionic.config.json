@@ -1,7 +1,8 @@
 {
-  "name": "chess-engine-ionic",
+  "name": "Chess Engine",
   "integrations": {
     "capacitor": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "id": "2a480687"
 }
